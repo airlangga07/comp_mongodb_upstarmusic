@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const Artist = require('../models/artist');
 
 /**
@@ -6,4 +7,5 @@ const Artist = require('../models/artist');
  * @return {promise} A promise that resolves with the Artist that matches the id
  */
 module.exports = (_id) => {
+  return Artist.findOne({ _id: _id }); 
 };
