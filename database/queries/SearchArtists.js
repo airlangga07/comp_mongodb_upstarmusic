@@ -15,7 +15,7 @@ module.exports = (criteria, sortProperty, offset = 0, limit = 20) => {
   // sortOrder[sortProperty] = 1;
   // we can do this: { [sortProperty]: 1 }
   const query = Artist
-    .find({})
+    .find(buildQuery(criteria))
     .sort({ [sortProperty]: 1 })
     .skip(offset)
     .limit(limit);
@@ -25,3 +25,10 @@ module.exports = (criteria, sortProperty, offset = 0, limit = 20) => {
       return { all: results[0], count: results[1], offset, limit };
     });
 };
+
+const buildQuery = (criteria) => {
+  const query = {};
+
+  if (criteria.age) query.age = { $gte: criteria.age.min, $lte: criteria.age.max };
+  return query;
+}; 
